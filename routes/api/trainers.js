@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Trainer = require('../../models/user');
+const User = require('../../models/user');
 
 router.get('/', (req, res, next) => {
-  
-  Trainer.find({})
+
+  //const pref = {$or: [{isTrainer = true}, {}]}
+  //const pref = {isTrainer = true}
+
+  User.find({})
     .then((trainerList) => {
       res.status(200);
       res.json(trainerList);
@@ -16,7 +19,7 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   const { id } = req.params;
 
-  Trainer.findById(id)
+  User.findById(id)
     .then((trainer) => {
       res.status(200);
       res.json(trainer);

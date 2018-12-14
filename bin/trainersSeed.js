@@ -24,7 +24,7 @@ const users = [
     goals: ['lose weight', 'get stronger'],
     gender: 'female',
     price: 80,
-    proffesion: 'Professional',
+    profession: 'Professional',
 },
   isTrainer: true,
   videoId: 'String'
@@ -41,7 +41,41 @@ const users = [
     goals: ['get stronger'],
     gender: 'female',
     price: 100,
-    proffesion: 'Nutrision',
+    profession: 'Nutrision',
+},
+  isTrainer: true,
+  videoId: 'String'
+},
+
+{
+  username: 'Kayla Itsines',
+  password: bcrypt.hashSync('1234', salt),
+  email: 'kl@kl.com',
+  desciption: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+  preferences: {
+    city: 'Syndey',
+    online: true,
+    goals: ['get stronger, lose weight'],
+    gender: 'female',
+    price: 200,
+    profession: 'personal trainer',
+},
+  isTrainer: true,
+  videoId: 'String'
+},
+
+{
+  username: 'Mel B',
+  password: bcrypt.hashSync('1234', salt),
+  email: 'ml@ml.com',
+  desciption: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+  preferences: {
+    city: 'New York',
+    online: true,
+    goals: ['get stronger, lose weight, get healthier'],
+    gender: 'female',
+    price: 0,
+    profession: 'personal trainer',
 },
   isTrainer: true,
   videoId: 'String'
