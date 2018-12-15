@@ -6,6 +6,7 @@ const userSchema = new Schema({
   username: String,
   password: String,
   email: String,
+  photoUrl: String,
   desciption: String,
   savedtrainers: ObjectId,
   preferences: {
@@ -15,6 +16,8 @@ const userSchema = new Schema({
     gender: Array,
     price: String,
     profession: String,
+    active: String,
+    age: String
 },
   isTrainer: Boolean,
   videoId: String

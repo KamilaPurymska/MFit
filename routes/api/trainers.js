@@ -42,8 +42,6 @@ router.get('/:id', (req, res, next) => {
 
 
 
-
-
 /*
 router.post('/phones', (req, res, next) => {
   const { brand, model, specs, image } = req.body;
