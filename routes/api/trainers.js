@@ -6,8 +6,8 @@ router.get('/', (req, res, next) => {
 
   //const pref = {$or: [{isTrainer = true}, {}]}
   //const pref = {isTrainer = true}
-
-  User.find({})
+/*
+  User.find({isTrainer: true})
     .then((trainerList) => {
       res.status(200);
       res.json(trainerList);
@@ -15,6 +15,42 @@ router.get('/', (req, res, next) => {
     .catch(next)
 
 });
+*/
+
+
+User.findById(req.session.currentUser._id)
+  .then((myself) => {
+    User.find( { "preferences.city": myself.preferences.city})
+      .then((arrayOfUsersAndTrainers) => {
+        const arrayOfTrainers = arrayOfUsersAndTrainers.filter((user) => {
+          console.log(arrayOfUsersAndTrainers)
+          return user.isTrainer 
+        })
+        res.status(200);
+        res.json(arrayOfTrainers)
+      })
+  })
+})
+
+/*
+  User.find({isTrainer: true})
+  .then((trainerList) => {
+    trainerList.forEach(trainer =>{
+    let trainersObject = {}
+    if (trainer.preferences.city == req.session.currentUser.preferences.city){
+      trainersObject = trainersObject.trainer
+    }
+    console.log(trainersObject)
+    console.log(trainerList)
+    res.status(200);
+    res.json(trainersArray);
+    })
+  })
+  .catch(next)
+
+  });
+
+*/
 
 router.get('/:id', (req, res, next) => {
   const { id } = req.params;
@@ -27,6 +63,39 @@ router.get('/:id', (req, res, next) => {
     .catch(next)
 });
 
+router.post('/:id/follow', (req, res, next) => {
+  const trainerId = req.params.id;
+  let trainerName;
+  let trainer = {};
+  // cannot add yourself
+  if (trainerId === req.session.currentUser._id) {
+    return res.redirect('/trainers');
+  };
+  User.findById(req.session.currentUser._id)
+    .then(result => {
+      result.savedtrainers.forEach(trainer => {
+        if (trainer === trainerId) {
+          return res.redirect('/trainers');
+        }
+      });
+    })
+    .catch(next);
+
+  User.findById(trainerId)
+    .then(result => {
+      trainerName = result.username;
+      trainer = {
+        trainerId,
+        trainerName
+      };
+      User.findByIdAndUpdate(req.session.currentUser._id, { $push: { savedtrainers: trainer } })
+        .then(() => {
+          res.redirect('/trainers');
+        })
+        .catch(next);
+    })
+    .catch(next);
+});
 
 
 

@@ -8,7 +8,7 @@ const userSchema = new Schema({
   email: String,
   photoUrl: String,
   desciption: String,
-  savedtrainers: ObjectId,
+  savedtrainers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   preferences: {
     city: String,
     online: Boolean,
