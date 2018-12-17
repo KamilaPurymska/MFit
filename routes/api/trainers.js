@@ -1,56 +1,64 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../../models/user');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 router.get('/', (req, res, next) => {
 
   //const pref = {$or: [{isTrainer = true}, {}]}
   //const pref = {isTrainer = true}
-/*
-  User.find({isTrainer: true})
-    .then((trainerList) => {
-      res.status(200);
-      res.json(trainerList);
-    })
-    .catch(next)
-
-});
-*/
-
-
-User.findById(req.session.currentUser._id)
-  .then((myself) => {
-    User.find( { "preferences.city": myself.preferences.city})
-      .then((arrayOfUsersAndTrainers) => {
-        const arrayOfTrainers = arrayOfUsersAndTrainers.filter((user) => {
-          console.log(arrayOfUsersAndTrainers)
-          return user.isTrainer 
-        })
+  /*
+    User.find({isTrainer: true})
+      .then((trainerList) => {
         res.status(200);
-        res.json(arrayOfTrainers)
+        res.json(trainerList);
       })
-  })
+      .catch(next)
+  
+  });
+  */
+
+
+  User.findById(req.session.currentUser._id)
+    .then((myself) => {
+      console.log(myself)
+      if (!myself.preferences.city && !myself.preferences.gender) {
+        User.find({ isTrainer: true })
+          .then((trainerList) => {
+            res.status(200);
+            console.log(trainerList)
+            return res.json(trainerList);
+
+          })
+          .catch(next)
+      }
+      if (myself.preferences.gender == "Doesnt matter")
+        User.find({ "preferences.city": myself.preferences.city })
+          .then((arrayOfUsersAndTrainers) => {
+            const arrayOfTrainers = arrayOfUsersAndTrainers.filter((user) => {
+              console.log(arrayOfUsersAndTrainers)
+              return user.isTrainer
+            })
+            res.status(200);
+            res.json(arrayOfTrainers)
+          })
+
+
+
+
+      User.find({ "preferences.city": myself.preferences.city, "preferences.gender": myself.preferences.gender })
+        .then((arrayOfUsersAndTrainers) => {
+          const arrayOfTrainers = arrayOfUsersAndTrainers.filter((user) => {
+            console.log(arrayOfUsersAndTrainers)
+            return user.isTrainer
+          })
+          res.status(200);
+          res.json(arrayOfTrainers)
+        })
+    })
 })
 
-/*
-  User.find({isTrainer: true})
-  .then((trainerList) => {
-    trainerList.forEach(trainer =>{
-    let trainersObject = {}
-    if (trainer.preferences.city == req.session.currentUser.preferences.city){
-      trainersObject = trainersObject.trainer
-    }
-    console.log(trainersObject)
-    console.log(trainerList)
-    res.status(200);
-    res.json(trainersArray);
-    })
-  })
-  .catch(next)
-
-  });
-
-*/
 
 router.get('/:id', (req, res, next) => {
   const { id } = req.params;
@@ -65,37 +73,45 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/:id/follow', (req, res, next) => {
   const trainerId = req.params.id;
+  console.log(trainerId)
   let trainerName;
   let trainer = {};
   // cannot add yourself
-  if (trainerId === req.session.currentUser._id) {
-    return res.redirect('/trainers');
-  };
+
+  // can not add many times
   User.findById(req.session.currentUser._id)
-    .then(result => {
-      result.savedtrainers.forEach(trainer => {
-        if (trainer === trainerId) {
-          return res.redirect('/trainers');
-        }
+    .then(user => {
+      const isInArray = user.savedtrainers.some((savedTrainerId) => {
+        return savedTrainerId.equals(trainerId);
       });
+      if(!isInArray){
+        user.savedtrainers.push(ObjectId(trainerId));
+        user.save()
+          .then((user) => {
+            req.session.currentUser = user;
+            res.status(200);
+            res.json(user);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      }
+      else{
+        res.json({user, isInArray});
+        console.log('already saved');
+      }
     })
     .catch(next);
 
-  User.findById(trainerId)
-    .then(result => {
-      trainerName = result.username;
-      trainer = {
-        trainerId,
-        trainerName
-      };
-      User.findByIdAndUpdate(req.session.currentUser._id, { $push: { savedtrainers: trainer } })
-        .then(() => {
-          res.redirect('/trainers');
-        })
-        .catch(next);
-    })
-    .catch(next);
 });
+
+// console.log('lets save trainer: ', user)
+//           user.savedtrainers.push(trainerId);
+//           user.save()
+//           .then((result)=>{
+//             console.log(result)
+//           })
+//           .catch(next)
 
 
 
@@ -167,3 +183,25 @@ router.delete('/phones/:id', (req, res, next) => {
 });
 */
 module.exports = router;
+
+
+/*
+
+User.findById(req.session.currentUser._id)
+  .then((myself) => {
+    User.find( { "preferences.city": myself.preferences.city})
+      .then((arrayOfUsersAndTrainers) => {
+          arrayOfUsersAndTrainers.preferences.goals.forEach(goal =>{
+            if(goal == myself.preferences.goals){
+              const arrayOfTrainers = arrayOfUsersAndTrainers.filter((user) => {
+                console.log(arrayOfUsersAndTrainers)
+                return user.isTrainer 
+            }
+          })
+        })
+        res.status(200);
+        res.json(arrayOfTrainers)
+      })
+  })
+
+  */

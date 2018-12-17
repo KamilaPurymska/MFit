@@ -2,18 +2,22 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
+//[{ type: Schema.Types.ObjectId, ref: 'User' }],
 const userSchema = new Schema({
   username: String,
   password: String,
   email: String,
   photoUrl: String,
   desciption: String,
-  savedtrainers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  savedtrainers: [{
+    type: ObjectId,
+    ref: 'User'
+  }],
   preferences: {
     city: String,
     online: Boolean,
     goals: Array,
-    gender: Array,
+    gender: String,
     price: String,
     profession: String,
     active: String,
