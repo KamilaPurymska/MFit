@@ -22,39 +22,36 @@ router.get('/', (req, res, next) => {
 
   User.findById(req.session.currentUser._id)
     .then((myself) => {
-      console.log(myself)
-      if (!myself.preferences.city && !myself.preferences.gender) {
+      // empty preferences
+      if (!myself.preferences.city && !myself.preferences.gender && !myself.preferences.styles && myself.preferences.goals.length === 0) {
         User.find({ isTrainer: true })
           .then((trainerList) => {
             res.status(200);
-            console.log(trainerList)
             return res.json(trainerList);
 
           })
           .catch(next)
       }
-      if (myself.preferences.gender == "Doesnt matter")
-        User.find({ "preferences.city": myself.preferences.city })
+      if (myself.preferences.gender == "Doesnt matter"){
+        User.find({ "preferences.city": myself.preferences.city, "preferences.styles":myself.preferences.styles, "preferences.goals": {$all: myself.preferences.goals}})
           .then((arrayOfUsersAndTrainers) => {
             const arrayOfTrainers = arrayOfUsersAndTrainers.filter((user) => {
-              console.log(arrayOfUsersAndTrainers)
               return user.isTrainer
             })
-            res.status(200);
-            res.json(arrayOfTrainers)
+            res.status(200).json(arrayOfTrainers)
           })
+        }
 
 
 
-
-      User.find({ "preferences.city": myself.preferences.city, "preferences.gender": myself.preferences.gender })
+      
+      User.find({ "preferences.city": myself.preferences.city, "preferences.styles":myself.preferences.styles, "preferences.gender": myself.preferences.gender, "preferences.goals": {$all: myself.preferences.goals} })
         .then((arrayOfUsersAndTrainers) => {
           const arrayOfTrainers = arrayOfUsersAndTrainers.filter((user) => {
             console.log(arrayOfUsersAndTrainers)
             return user.isTrainer
           })
-          res.status(200);
-          res.json(arrayOfTrainers)
+          res.status(200).json(arrayOfTrainers)
         })
     })
 })
@@ -62,20 +59,37 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   const { id } = req.params;
-
+  if (!ObjectId.isValid(id)) {
+    res.json({erros: 'not-id-valid'}).status(402);
+  }
   User.findById(id)
     .then((trainer) => {
-      res.status(200);
-      res.json(trainer);
+      if(!trainer) {
+        res.json({error: 'not-found'}).status(404)
+      }
+      return User.findOne(req.session.currentUser)
+      .then((user) => {
+        if(!user) {
+          res.json({error: 'not-found'}).status(404)
+        }
+        let isFollowing = false;
+        for (let i = 0; i < user.savedtrainers.length; i++) {
+          if (trainer._id.equals(user.savedtrainers[i])){
+            isFollowing = true
+          } 
+        }
+        if(isFollowing) {
+          res.status(200).json({trainer, message: 'Unfollow'});
+        } else {
+          res.status(200).json({trainer, message: 'Follow'});
+        }
+      })
     })
     .catch(next)
 });
 
 router.post('/:id/follow', (req, res, next) => {
   const trainerId = req.params.id;
-  console.log(trainerId)
-  let trainerName;
-  let trainer = {};
   // cannot add yourself
 
   // can not add many times
@@ -89,21 +103,34 @@ router.post('/:id/follow', (req, res, next) => {
         user.save()
           .then((user) => {
             req.session.currentUser = user;
-            res.status(200);
-            res.json(user);
+            res.status(200).json({message: 'Unfollow'});
           })
           .catch(err => {
             console.log(err);
           })
-      }
-      else{
-        res.json({user, isInArray});
-        console.log('already saved');
-      }
-    })
-    .catch(next);
+      } else {
+        user.savedtrainers.pull(ObjectId(trainerId))
+        user.save()
+        .then((user) => {
+          req.session.currentUser = user;
+          res.status(200).json({message: 'Follow'});
+        })
+        .catch(err => {
+        console.log(err); 
+      })
+    }
+  })
+  .catch(next);
 
-});
+})
+
+
+
+
+
+
+
+
 
 // console.log('lets save trainer: ', user)
 //           user.savedtrainers.push(trainerId);

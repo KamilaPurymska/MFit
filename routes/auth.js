@@ -7,12 +7,28 @@ const User = require('../models/user');
 const { isLoggedIn } = require('../helpers/middlewares');
 
 router.get('/me', (req, res, next) => {
-  if (req.session.currentUser) {
-    res.json(req.session.currentUser);
-  } else {
+  if (!req.session.currentUser) {
     res.status(404).json({
       error: 'not-found'
     });
+  } else {
+    res.json(req.session.currentUser).status(200);
+  }
+});
+
+
+router.get('/myProfile', (req, res, next) => {
+  if (!req.session.currentUser) {
+    res.status(404).json({
+      error: 'not-found'
+    });
+  } else {
+    User.findOne(req.session.currentUser)
+    .populate('savedtrainers')
+    .then((user) => {
+        res.json(user).status(200);
+    })
+    .catch((next))  
   }
 });
 

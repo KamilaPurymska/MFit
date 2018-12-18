@@ -22,13 +22,14 @@ const users = [
   preferences: {
     city: 'Warsaw',
     online: true,
-    goals: ['lose weight', 'get stronger'],
+    goals: ['Lose weight', 'Be healthier and feel better'],
     gender: 'Female',
     price: 80,
     profession: 'Professional',
+    styles: 'A Supportive, Nurturing Coach'
 },
   isTrainer: true,
-  videoId: 'String'
+  videoUrl: 'https://www.youtube.com/embed/3tJrKb7vXuc'
 },
 
 {
@@ -40,13 +41,14 @@ const users = [
   preferences: {
     city: 'Warsaw',
     online: false,
-    goals: ['get stronger'],
+    goals: ['Lose weight', 'Get stronger', 'Be healthier and feel better'],
     gender: 'Female',
     price: 100,
     profession: 'Nutrision',
+    styles: 'A Supportive, Nurturing Coach'
 },
   isTrainer: true,
-  videoId: 'String'
+  videoUrl: 'String'
 },
 
 {
@@ -58,13 +60,14 @@ const users = [
   preferences: {
     city: 'Syndey',
     online: true,
-    goals: ['get stronger, lose weight'],
+    goals: ['Lose weight', 'Get stronger', 'Be healthier and feel better'],
     gender: 'Female',
     price: 200,
     profession: 'personal trainer',
+    styles: 'A Supportive, Nurturing Coach'
 },
   isTrainer: true,
-  videoId: 'String'
+  videoUrl: 'String'
 },
 
 {
@@ -76,13 +79,14 @@ const users = [
   preferences: {
     city: 'New York',
     online: true,
-    goals: ['get stronger, lose weight, get healthier'],
+    goals: ['Lose weight'],
     gender: 'Female',
     price: 0,
     profession: 'personal trainer',
+    styles: 'An Educator or Teacher'
 },
   isTrainer: true,
-  videoId: 'String'
+  videoUrl: 'String'
 },
 
 {
@@ -94,13 +98,14 @@ const users = [
   preferences: {
     city: 'Barcelona',
     online: true,
-    goals: ['get stronger, lose weight, get healthier'],
+    goals: ['Lose weight', 'Get stronger', 'Be healthier and feel better'],
     gender: 'Male',
     price: 50,
     profession: 'personal trainer',
+    styles: 'An Educator or Teacher'
 },
   isTrainer: true,
-  videoId: 'String'
+  videoUrl: 'String'
 },
 
 {
@@ -112,13 +117,14 @@ const users = [
   preferences: {
     city: 'Barcelona',
     online: true,
-    goals: ['get stronger, lose weight, get healthier'],
+    goals: ['Lose weight', 'Get stronger', 'Be healthier and feel better'],
     gender: 'Male',
     price: 80,
     profession: 'personal trainer',
+    styles: 'A Supportive, Nurturing Coach'
 },
   isTrainer: true,
-  videoId: 'String'
+  videoUrl: 'String'
 },
 
 {
@@ -129,13 +135,14 @@ const users = [
   preferences: {
     city: 'Barcelona',
     online: true,
-    goals: ['get stronger, lose weight, get healthier'],
+    goals: ['Lose weight','Be healthier and feel better'],
     gender: 'Female',
     price: 100,
     profession: 'personal trainer',
+    styles: 'A Drill Sergeant'
 },
   isTrainer: true,
-  videoId: 'String'
+  videoUrl: 'String'
 },
 
 ]

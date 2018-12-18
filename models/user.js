@@ -21,10 +21,11 @@ const userSchema = new Schema({
     price: String,
     profession: String,
     active: String,
-    age: String
+    age: String,
+    styles: String
 },
   isTrainer: Boolean,
-  videoId: String
+  videoUrl: String
 
 
 }, {
@@ -37,3 +38,5 @@ const userSchema = new Schema({
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
+
+

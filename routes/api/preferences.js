@@ -9,13 +9,12 @@ router.get('/', (req, res, next) => {
 });
 
 router.put('/', (req, res, next) => {
-  const {goals, profession, gender, active, age, city } = req.body;
-  console.log(req.body)
+  const {goals, styles, gender, active, age, city } = req.body;
   const userId = req.session.currentUser._id
   const updateData = {
     preferences: {
       goals,
-      profession,
+      styles,
       gender,
       active,
       age,
