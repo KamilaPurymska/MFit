@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect('mongodb://KamilaPurymska:kamcia7236044@ds135844.mlab.com:35844/mfit', {
   keepAlive: true,
   useNewUrlParser: true,
   reconnectTries: Number.MAX_VALUE
