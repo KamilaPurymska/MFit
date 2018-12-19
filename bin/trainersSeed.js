@@ -150,6 +150,7 @@ const users = [
 
 User.create(users)
 .then(() => {
+  console.log('done')
   mongoose.connection.close();
 })
 .catch(error => {
