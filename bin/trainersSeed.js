@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const User = require('../models/user');
+require('dotenv').config();
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 
-mongoose.connect('mongodb://localhost/MFit', {
+mongoose.connect(process.env.MONGODB_URI, {
   keepAlive: true,
   useNewUrlParser: true,
   reconnectTries: Number.MAX_VALUE
