@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 
+
 const User = require('../models/user');
 
 const { isLoggedIn } = require('../helpers/middlewares');
@@ -12,6 +13,8 @@ router.get('/me', (req, res, next) => {
       error: 'not-found'
     });
   } else {
+    
+
     res.json(req.session.currentUser).status(200);
   }
 });
@@ -53,7 +56,7 @@ router.post('/login', (req, res, next) => {
     .then((user) => {
       if (!user) {
         return res.status(404).json({
-          error: 'not-found'
+          error: 'user not found'
         });
       }
       // TODO async bcrypt
@@ -62,7 +65,7 @@ router.post('/login', (req, res, next) => {
         return res.status(200).json(user);
       }
       return res.status(404).json({
-        error: 'not-found'
+        error: 'username or password incorrect'
       });
     })
     .catch(next);
@@ -77,7 +80,7 @@ router.post('/signup', (req, res, next) => {
 
   if (!username || !password) {
     return res.status(422).json({
-      error: 'empty'
+      error: `can't be empty`
     });
   }
 
@@ -87,7 +90,7 @@ router.post('/signup', (req, res, next) => {
     .then((userExists) => {
       if (userExists) {
         return res.status(422).json({
-          error: 'username-not-unique'
+          error: 'username not unique'
         });
       }
 

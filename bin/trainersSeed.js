@@ -29,7 +29,7 @@ const users = [
     styles: 'A Supportive, Nurturing Coach'
 },
   isTrainer: true,
-  videoUrl: 'https://www.youtube.com/embed/3tJrKb7vXuc'
+  videoUrl: ['https://www.youtube.com/embed/3tJrKb7vXuc', 'https://www.youtube.com/embed/XYN0kRJFDCQ', 'https://www.youtube.com/embed/hCsshQynUWA']
 },
 
 {
@@ -48,7 +48,7 @@ const users = [
     styles: 'A Supportive, Nurturing Coach'
 },
   isTrainer: true,
-  videoUrl: 'String'
+  videoUrl: []
 },
 
 {
@@ -67,7 +67,7 @@ const users = [
     styles: 'A Supportive, Nurturing Coach'
 },
   isTrainer: true,
-  videoUrl: 'String'
+  videoUrl: []
 },
 
 {
@@ -86,7 +86,7 @@ const users = [
     styles: 'An Educator or Teacher'
 },
   isTrainer: true,
-  videoUrl: 'String'
+  videoUrl: []
 },
 
 {
@@ -105,7 +105,7 @@ const users = [
     styles: 'An Educator or Teacher'
 },
   isTrainer: true,
-  videoUrl: 'String'
+  videoUrl: []
 },
 
 {
@@ -124,7 +124,7 @@ const users = [
     styles: 'A Supportive, Nurturing Coach'
 },
   isTrainer: true,
-  videoUrl: 'String'
+  videoUrl: []
 },
 
 {
@@ -139,10 +139,10 @@ const users = [
     gender: 'Female',
     price: 100,
     profession: 'personal trainer',
-    styles: 'A Drill Sergeant'
+    styles: 'An Educator or Teacher'
 },
   isTrainer: true,
-  videoUrl: 'String'
+  videoUrl: []
 },
 
 ]

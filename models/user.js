@@ -25,7 +25,7 @@ const userSchema = new Schema({
     styles: String
 },
   isTrainer: Boolean,
-  videoUrl: String
+  videoUrl: Array
 
 
 }, {
