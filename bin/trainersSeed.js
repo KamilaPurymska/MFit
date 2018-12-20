@@ -7,7 +7,7 @@ const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 //'mongodb://localhost/MFit'
 //'mongodb://KamilaPurymska:kamcia7236044@ds135844.mlab.com:35844/mfit'
-mongoose.connect('mongodb://KamilaPurymska:kamcia7236044@ds135844.mlab.com:35844/mfit', {
+mongoose.connect('mongodb://localhost/MFit', {
   keepAlive: true,
   useNewUrlParser: true,
   reconnectTries: Number.MAX_VALUE
@@ -50,7 +50,7 @@ const users = [
     styles: 'A Supportive, Nurturing Coach'
 },
   isTrainer: true,
-  videoUrl: []
+  videoUrl: ['https://www.youtube.com/embed/h__oBQ9UIcg']
 },
 
 {
