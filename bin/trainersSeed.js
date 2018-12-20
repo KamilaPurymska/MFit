@@ -113,7 +113,7 @@ const users = [
 {
   username: 'Alex Lopez',
   password: bcrypt.hashSync('1234', salt),
-  email: 'rg@ml.com',
+  email: 'kamila.purymska@gmail.com',
   photoUrl: 'http://www.musclemindmotivation.com/wp-content/uploads/2018/02/health-5a83311b253d5-5a83315234ff1.jpeg',
   desciption: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. `,
   preferences: {
@@ -134,6 +134,7 @@ const users = [
   password: bcrypt.hashSync('1234', salt),
   email: 'rg@ml.com',
   photoUrl: 'https://marketplace.canva.com/MAB-2SkMITM/1/thumbnail_large/canva-fitness-model-in-sportswear-MAB-2SkMITM.jpg',
+  desciption: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. `,
   preferences: {
     city: 'Barcelona',
     online: true,
@@ -151,7 +152,6 @@ const users = [
 
 User.create(users)
 .then(() => {
-  console.log('done')
   mongoose.connection.close();
 })
 .catch(error => {

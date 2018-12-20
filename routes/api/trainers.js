@@ -36,7 +36,6 @@ router.get('/', (req, res, next) => {
         return User.find({ "preferences.city": myself.preferences.city, "preferences.styles": myself.preferences.styles, "preferences.gender": myself.preferences.gender, "preferences.goals": { $all: myself.preferences.goals } })
         .then((arrayOfUsersAndTrainers) => {
           const arrayOfTrainers = arrayOfUsersAndTrainers.filter((user) => {
-            console.log(arrayOfUsersAndTrainers)
             return user.isTrainer
           })
           res.status(200).json(arrayOfTrainers)
@@ -139,107 +138,6 @@ router.post('/:id/follow', (req, res, next) => {
 
 
 
-
-
-
-
-// console.log('lets save trainer: ', user)
-//           user.savedtrainers.push(trainerId);
-//           user.save()
-//           .then((result)=>{
-//             console.log(result)
-//           })
-//           .catch(next)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-router.post('/phones', (req, res, next) => {
-  const { brand, model, specs, image } = req.body;
-
-  const newPhone = new Phone({
-    brand,
-    model,
-    specs: specs || [],
-    image,
-  });
-  
-  newPhone.save()
-  .then((phone)=> {
-    res.status(200)
-    res.json({phone: newPhone})
-  })
-  .catch(next)
-});
-*/
-
-/*
-router.put('/phones/:id', (req, res, next) => {
-  const { id } = req.params;
-  const { brand, model, specs, image } = req.body;
-  const phoneToUpdate = {
-    brand,
-    model,
-    specs,
-    image,
-  };
-
-  Phone.findByIdAndUpdate(id, phoneToUpdate)
-    .then((phone) => {
-      res.status(200);
-      res.json({ 
-        message: "updated",
-        phone: phone });
-    })
-    .catch(next)
-});
-
-router.delete('/phones/:id', (req, res, next) => {
-  const { id } = req.params;
-
-  Phone.findByIdAndDelete(id)
-    .then((phone) => {
-      res.status(200);
-      res.json({ 
-        message: "deleted",
-        phone: phone });
-    })
-    .catch(next)
-
-});
-*/
 module.exports = router;
 
 
-/*
-
-User.findById(req.session.currentUser._id)
-  .then((myself) => {
-    User.find( { "preferences.city": myself.preferences.city})
-      .then((arrayOfUsersAndTrainers) => {
-          arrayOfUsersAndTrainers.preferences.goals.forEach(goal =>{
-            if(goal == myself.preferences.goals){
-              const arrayOfTrainers = arrayOfUsersAndTrainers.filter((user) => {
-                console.log(arrayOfUsersAndTrainers)
-                return user.isTrainer 
-            }
-          })
-        })
-        res.status(200);
-        res.json(arrayOfTrainers)
-      })
-  })
-
-  */
