@@ -7,7 +7,7 @@ const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 //'mongodb://localhost/MFit'
 //'mongodb://KamilaPurymska:kamcia7236044@ds135844.mlab.com:35844/mfit'
-mongoose.connect('mongodb://localhost/MFit', {
+mongoose.connect('mongodb://KamilaPurymska:kamcia7236044@ds135844.mlab.com:35844/mfit', {
   keepAlive: true,
   useNewUrlParser: true,
   reconnectTries: Number.MAX_VALUE
